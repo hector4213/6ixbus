@@ -7,7 +7,7 @@ import BusList from './BusList';
 const App = () => {
   const [stopSearch, setStopSearch] = useState(""); // stop id state
   const [busData, setBusData] = useState([]); // bus data that has routes
-  const [ selectedRoute, setSelectedRoute] = useState(null) //the routes user has clicked
+  const [ selectedRoute, setSelectedRoute] = useState([]) //the routes user has clicked
   const [showBusTimes, setShowBusTimes] = useState(false);
 
   const handleStopChange = (e) => {
