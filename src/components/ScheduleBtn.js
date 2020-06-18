@@ -2,7 +2,7 @@ import React from 'react'
 
 const ScheduleBtn = (props) => {
     
-    return <button onClick={props.onClick}>Select Bus</button>
+    return <button className="button is-primary is-rounded" onClick={props.onClick}>Select Bus</button>
 }
 
 export default ScheduleBtn

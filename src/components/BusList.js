@@ -2,7 +2,6 @@ import React from "react";
 
 const BusList = (props) => {
   console.log("this is BusList props", props);
-  // const nextThree = props.times.predictions.direction.prediction.slice(0, 3);
 
   const showNoBus = () => {
     if (props.times.predictions.dirTitleBecauseNoPredictions) {
@@ -16,22 +15,36 @@ const BusList = (props) => {
   };
 
   const showBus = () => {
+    if (props.times.predictions.direction.prediction.length < 0) {
+      return (
+        <li key={props.times.predictions.direction.prediction.tripTag}>
+          Minutes {props.times.predictions.direction.prediction.minutes}
+          Seconds {props.times.predictions.direction.prediction.seconds}
+        </li>
+      );
+    }
     const nextThree = props.times.predictions.direction.prediction.slice(0, 3);
     return nextThree.map((bus) => (
-      <li key={bus.tripTag}>
-        Minutes {bus.minutes} Seconds {bus.seconds}
-      </li>
+      <div className="card py-4 px-4">
+        <li className="level" key={bus.tripTag}>
+          <div className="level-item">
+            Minutes {bus.minutes} Seconds {bus.seconds}
+          </div>
+        </li>
+      </div>
     ));
   };
 
-  const schedule = !Array.isArray(props.times.predictions)
+  const schedule = props.times.predictions.dirTitleBecauseNoPredictions
     ? showNoBus()
     : showBus();
 
   return (
-    <div>
-      <h1>{props.times.predictions.routeTitle}</h1>
-      <h2>{props.times.predictions.stopTitle}</h2>
+    <div className="section">
+      <div className="notification is-primary">
+      <h1 className="title is-3">{props.times.predictions.routeTitle}</h1>
+      <h2 className="title is-5">{props.times.predictions.stopTitle}</h2>
+      </div>
       <ul>{schedule}</ul>
     </div>
   );

@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import Nextbus from "../api/Nextbus";
 import BusInput from "./BusInput";
 import RouteList from "./RouteList";
-import BusList from './BusList';
+import BusList from "./BusList";
 
 const App = () => {
   const [stopSearch, setStopSearch] = useState(""); // stop id state
   const [busData, setBusData] = useState([]); // bus data that has routes
-  const [ selectedRoute, setSelectedRoute] = useState([]) //the routes user has clicked
-  const [showBusTimes, setShowBusTimes] = useState(false);
+  const [selectedRoute, setSelectedRoute] = useState([]); //the routes user has clicked
+  const [showBusTimes, setShowBusTimes] = useState(false); //shows bus schedule
 
   const handleStopChange = (e) => {
     setStopSearch(e.target.value);
@@ -20,12 +20,11 @@ const App = () => {
       params: { command: "predictions", a: "ttc", stopId: `${stopSearch}` },
     });
     setBusData(response.data);
-    
   };
 
   const { predictions } = busData;
-  console.log('This is busData', busData)
-  console.log("this is selected route",selectedRoute)
+  console.log("This is busData", busData);
+  console.log("this is selected route", selectedRoute);
 
   const getBusSchedule = async (routeTag, stopTag) => {
     const response = await Nextbus.get(null, {
@@ -36,24 +35,23 @@ const App = () => {
         s: `${stopTag}`,
       },
     });
-    setSelectedRoute(response.data)
+    setSelectedRoute(response.data);
     setShowBusTimes(!showBusTimes);
-  
   };
 
   return (
     <div>
-      <h1>6ixBus</h1>
-      <BusInput
-        handleStopChange={handleStopChange}
-        onBusStopSubmit={onBusStopSubmit}
-        stopSearch={stopSearch}
-      />
-      <div>
-        <RouteList routes={predictions} getBusSchedule={getBusSchedule}/>
-      </div>
-      <div>
-        {showBusTimes && <BusList times={selectedRoute}/>}
+      <div className="panel is-primary">
+        <h1 className="panel-heading has-text-centered">6ixBus</h1>
+        <BusInput
+          handleStopChange={handleStopChange}
+          onBusStopSubmit={onBusStopSubmit}
+          stopSearch={stopSearch}
+        />
+        <div>{showBusTimes && <BusList times={selectedRoute} />}</div>
+        <div>
+          <RouteList routes={predictions} getBusSchedule={getBusSchedule} />
+        </div>
       </div>
     </div>
   );

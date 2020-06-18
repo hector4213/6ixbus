@@ -1,14 +1,24 @@
 import React from "react";
 
-const BusInput = (props) => {
+import '../styles/App.scss'
 
+const BusInput = (props) => {
   return (
-    <div>
+    <div className="field">
       <form onSubmit={props.onBusStopSubmit}>
-        <label>
-          StopId:
-          <input onChange={props.handleStopChange} value={props.stopSearch} type="text" />
-        </label>
+          <label className="label has-text-centered my-5">Enter StopID</label>
+          <div className="control">
+            <input
+              className="input"
+              onChange={props.handleStopChange}
+              value={props.stopSearch}
+              type="text"
+            />
+          </div>
+          <p className="help">Enter TTC Stop ID</p>
+        <div className="has-text-centered">
+        <button className="button is-primary is-rounded">Get Routes</button>
+        </div>
       </form>
     </div>
   );

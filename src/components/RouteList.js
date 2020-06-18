@@ -8,20 +8,26 @@ const RouteList = ({ routes, getBusSchedule }) => {
   console.log(routes);
   const mapArr = () => {
     return routes.map((route) => (
-      <li key={route.routeTag}>
-        {route.routeTitle}
-        <ScheduleBtn
-          onClick={() => getBusSchedule(route.routeTag, route.stopTag)}
-        />
-      </li>
+      <div className="card">
+        <li className="level py-4 px-4" key={route.routeTag}>
+          <div className="level-left">
+            <div className="level-item ">{route.routeTitle}</div>
+          </div>
+          <div className="level-right">
+            <div className="level-item">
+              <ScheduleBtn
+                onClick={() => getBusSchedule(route.routeTag, route.stopTag)}
+              />
+            </div>
+          </div>
+        </li>
+      </div>
     ));
   };
 
   const printSingleRoute = () => {
-    if(routes.hasOwnProperty("dirTitleBecauseNoPredictions")){
-      return (
-      <li>Your {routes.routeTitle} is currently not running...</li>
-      )
+    if (routes.hasOwnProperty("dirTitleBecauseNoPredictions")) {
+      return <li>Your {routes.routeTitle} is currently not running...</li>;
     }
     return (
       <li key={routes.routeTag}>
