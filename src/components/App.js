@@ -24,7 +24,6 @@ const App = () => {
 
   const { predictions } = busData;
   console.log("This is busData", busData);
-  console.log("this is selected route", selectedRoute);
 
   const getBusSchedule = async (routeTag, stopTag) => {
     const response = await Nextbus.get(null, {
