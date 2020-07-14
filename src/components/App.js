@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Nextbus from "../api/Nextbus";
 import BusInput from "./BusInput";
 import RouteList from "./RouteList";
 import BusList from "./BusList";
 
 const App = () => {
-  const [stopSearch, setStopSearch] = useState(""); // stop id state
+  const [stopSearch, setStopSearch] = useState(""); // stop id input state
   const [busData, setBusData] = useState([]); // bus data that has routes
-  const [selectedRoute, setSelectedRoute] = useState([]); //the routes user has clicked
+  const [selectedRoute, setSelectedRoute] = useState([]); //the routes user has clicked if this changes useEffect?
   const [showBusTimes, setShowBusTimes] = useState(false); //shows bus schedule
 
   const handleStopChange = (e) => {
@@ -20,10 +20,11 @@ const App = () => {
       params: { command: "predictions", a: "ttc", stopId: `${stopSearch}` },
     });
     setBusData(response.data);
+    console.log("This is busData from onStopSubmit", busData);
   };
 
   const { predictions } = busData;
-  console.log("This is busData", busData);
+  console.log("This is busData from onStopSubmit, which will show the routes avail to the stop", busData);
 
   const getBusSchedule = async (routeTag, stopTag) => {
     const response = await Nextbus.get(null, {
@@ -35,12 +36,17 @@ const App = () => {
       },
     });
     setSelectedRoute(response.data);
-    setShowBusTimes(!showBusTimes);
+    setShowBusTimes(true);
+    console.log('this is from getBusSchedule', response.data)
   };
 
+  useEffect(()=> {
+    setShowBusTimes(false)//when user enters new busstop showbustimes goes back to normal and hides
+  }, [busData])
+
   return (
-    <div>
-      <div className="panel is-primary">
+    <div className="main-container">
+      <div className="panel is-primary ui">
         <h1 className="panel-heading has-text-centered">6ixBus</h1>
         <BusInput
           handleStopChange={handleStopChange}
