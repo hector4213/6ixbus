@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import BusInput from './BusInput'
 import RouteList from './RouteList'
 import BusList from './BusList'
-import busService from '../api/apiService/nextbus'
+import busService from '../api/nextbus'
 
 const App = () => {
   const [stopSearch, setStopSearch] = useState('') // stop id input state
