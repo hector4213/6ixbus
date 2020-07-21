@@ -9,25 +9,23 @@ const App = () => {
   const [busData, setBusData] = useState([]) // bus data that has routes
   const [selectedRoute, setSelectedRoute] = useState([]) //the routes user has clicked if this changes useEffect?
   const [showBusTimes, setShowBusTimes] = useState(false) //shows bus schedule
-  const [routeList, setRouteList] = useState(null)
 
   const handleStopChange = (e) => {
     setStopSearch(e.target.value)
   }
 
-  const onBusStopSubmit = (e) => {
+  const onBusStopSubmit = async (e) => {
     e.preventDefault()
 
-    busService.getRoutes(stopSearch).then((response) => {
-      setBusData(response.data)
-    })
+    const response = await busService.getRoutes(stopSearch)
+    setBusData(response.data)
   }
 
-  const getBusSchedule = (routeTag, stopTag) => {
-    busService.getSchedule(routeTag, stopTag).then((response) => {
-      setSelectedRoute(response.data)
-      setShowBusTimes(true)
-    })
+  const getBusSchedule = async (routeTag, stopTag) => {
+    const response = await busService.getSchedule(routeTag, stopTag)
+    setSelectedRoute(response.data)
+    setShowBusTimes(true)
+
     console.log('this is selectedRoute', selectedRoute)
   }
 

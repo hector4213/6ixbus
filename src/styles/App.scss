@@ -1,11 +1,10 @@
 @import 'src/index.scss';
 
 .main-container {
-    margin: 0 auto;
-    min-width: 75vw;
-    
+  margin: 0 auto;
+  max-width: 60vw;
 }
 
 .ui {
-    min-height: 100vh;
+  min-height: 100vh;
 }
