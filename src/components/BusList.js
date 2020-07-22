@@ -3,29 +3,28 @@ import React, { useState, useEffect } from 'react'
 import Loader from './Loader'
 
 const BusList = (props) => {
+  const { predictions } = props.times
+
   const [timeout, updateTimeout] = useState(false)
   useEffect(() => {
     setTimeout(() => {
       updateTimeout(true)
     }, 2000)
   })
-  if (!props.times.predictions || !timeout) {
+  if (!predictions || !timeout) {
     return <Loader />
   }
   const showNoBus = () => {
-    if (props.times.predictions.dirTitleBecauseNoPredictions) {
+    if (predictions.dirTitleBecauseNoPredictions) {
       return (
-        <li>
-          Sorry {props.times.predictions.dirTitleBecauseNoPredictions} is not
-          running
-        </li>
+        <li>Sorry {predictions.dirTitleBecauseNoPredictions} is not running</li>
       )
     }
   }
 
   const showBus = () => {
-    if (Array.isArray(props.times.predictions.direction.prediction)) {
-      const nextThree = props.times.predictions.direction.prediction.slice(0, 3)
+    if (Array.isArray(predictions.direction.prediction)) {
+      const nextThree = predictions.direction.prediction.slice(0, 3)
       return nextThree.map((bus) => (
         <div className='card py-4 px-4' key={bus.tripTag}>
           <li className='level'>
@@ -33,26 +32,24 @@ const BusList = (props) => {
           </li>
         </div>
       ))
-    } else if (
-      typeof props.times.predictions.direction.prediction === 'object'
-    ) {
+    } else if (typeof predictions.direction.prediction === 'object') {
       return (
-        <li key={props.times.predictions.direction.prediction.tripTag}>
-          Minutes {props.times.predictions.direction.prediction.minutes}
+        <li key={predictions.direction.prediction.tripTag}>
+          Minutes {predictions.direction.prediction.minutes}
         </li>
       )
     }
   }
 
-  const schedule = props.times.predictions.dirTitleBecauseNoPredictions
+  const schedule = predictions.dirTitleBecauseNoPredictions
     ? showNoBus()
     : showBus()
 
   return (
     <div className='section'>
       <div className='notification is-primary'>
-        <h1 className='title is-3'>{props.times.predictions.routeTitle}</h1>
-        <h2 className='title is-5'>{props.times.predictions.stopTitle}</h2>
+        <h1 className='title is-3'>{predictions.routeTitle}</h1>
+        <h2 className='title is-5'>{predictions.stopTitle}</h2>
       </div>
       <ul>{schedule}</ul>
     </div>
