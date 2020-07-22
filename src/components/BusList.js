@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Loader from './Loader'
 
 const BusList = (props) => {
-  if (!props.times.predictions) {
+  const [timeout, updateTimeout] = useState(false)
+  useEffect(() => {
+    setTimeout(() => {
+      updateTimeout(true)
+    }, 2000)
+  })
+  if (!props.times.predictions || !timeout) {
     return <Loader />
   }
   const showNoBus = () => {
