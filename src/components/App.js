@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import BusInput from './BusInput'
 import RouteList from './RouteList'
 import BusList from './BusList'
+
 import busService from '../api/nextbus'
 
 const App = () => {
@@ -22,9 +23,9 @@ const App = () => {
   }
 
   const getBusSchedule = async (routeTag, stopTag) => {
+    setShowBusTimes(true)
     const response = await busService.getSchedule(routeTag, stopTag)
     setSelectedRoute(response.data)
-    setShowBusTimes(true)
 
     console.log('this is selectedRoute', selectedRoute)
   }
@@ -42,7 +43,7 @@ const App = () => {
           onBusStopSubmit={onBusStopSubmit}
           stopSearch={stopSearch}
         />
-        <div>{showBusTimes && <BusList times={selectedRoute} />}</div>
+        <div>{showBusTimes ? <BusList times={selectedRoute} /> : null}</div>
         <div>
           <RouteList
             routes={busData.predictions}

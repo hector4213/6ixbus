@@ -1,12 +1,10 @@
 import React from 'react'
 
+import Loader from './Loader'
+
 const BusList = (props) => {
-  if (!props) {
-    return (
-      <progress class='progress is-large is-primary' max='100'>
-        15%
-      </progress>
-    )
+  if (!props.times.predictions) {
+    return <Loader />
   }
   const showNoBus = () => {
     if (props.times.predictions.dirTitleBecauseNoPredictions) {

@@ -3,11 +3,7 @@ import RouteItem from './RouteItem'
 
 const RouteList = ({ routes, getBusSchedule }) => {
   if (!routes) {
-    return (
-      <progress class='progress is-large is-primary' max='100'>
-        15%
-      </progress>
-    )
+    return null
   }
   console.log('this is routes', routes)
 
