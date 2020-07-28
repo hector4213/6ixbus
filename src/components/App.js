@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import BusInput from './BusInput'
 import RouteList from './RouteList'
 import BusList from './BusList'
+import RouteSearchFilter from './RouteSearchFilter'
+import RouteListData from './RouteListData'
 
 import busService from '../api/nextbus'
 
@@ -10,9 +12,15 @@ const App = () => {
   const [busData, setBusData] = useState([]) // bus data that has routes
   const [selectedRoute, setSelectedRoute] = useState([]) //the routes user has clicked if this changes useEffect?
   const [showBusTimes, setShowBusTimes] = useState(false) //shows bus schedule
+  const [allRoutes, setAllRoutes] = useState([])
+  const [routeSearch, setRouteSearch] = useState('')
 
   const handleStopChange = (e) => {
     setStopSearch(e.target.value)
+  }
+
+  const handleRouteSearch = (e) => {
+    setRouteSearch(e.target.value)
   }
 
   const onBusStopSubmit = async (e) => {
@@ -30,6 +38,19 @@ const App = () => {
     console.log('this is selectedRoute', selectedRoute)
   }
 
+  const filteredRoutes = allRoutes.filter(
+    (route) =>
+      route.title.toLowerCase().indexOf(routeSearch.toLowerCase()) !== -1
+  )
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await busService.getallServiceRoutes()
+      setAllRoutes(response.data.route)
+    }
+    fetchData()
+  }, [])
+
   useEffect(() => {
     setShowBusTimes(false) //when user enters new busstop showbustimes goes back to normal and hides
   }, [busData])
@@ -38,12 +59,21 @@ const App = () => {
     <div className='main-container'>
       <div className='panel is-primary ui'>
         <h1 className='panel-heading has-text-centered'>6ixBus</h1>
+        <div>{showBusTimes ? <BusList times={selectedRoute} /> : null}</div>
         <BusInput
           handleStopChange={handleStopChange}
           onBusStopSubmit={onBusStopSubmit}
           stopSearch={stopSearch}
         />
-        <div>{showBusTimes ? <BusList times={selectedRoute} /> : null}</div>
+        <RouteSearchFilter
+          onChange={handleRouteSearch}
+          routeSearch={routeSearch}
+        />
+        <RouteListData
+          filteredRoutes={filteredRoutes}
+          changeSearch={setRouteSearch}
+          getBusSchedule={getBusSchedule}
+        />
         <div>
           <RouteList
             routes={busData.predictions}

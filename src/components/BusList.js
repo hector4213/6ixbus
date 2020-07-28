@@ -10,7 +10,8 @@ const BusList = (props) => {
     setTimeout(() => {
       updateTimeout(true)
     }, 2000)
-  })
+  }, [predictions])
+
   if (!predictions || !timeout) {
     return <Loader />
   }

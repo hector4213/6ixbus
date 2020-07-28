@@ -19,7 +19,27 @@ const getSchedule = (routeTag, stopTag) => {
   })
 }
 
+const getallServiceRoutes = () => {
+  return axios.get(baseURL, {
+    params: {
+      command: 'routeList',
+      a: 'ttc',
+    },
+  })
+}
+
+const getNearestStop = (routeTag) => {
+  return axios.get(baseURL, {
+    params: {
+      command: 'routeConfig',
+      a: 'ttc',
+      r: `${routeTag}`,
+    },
+  })
+}
 export default {
   getSchedule,
   getRoutes,
+  getallServiceRoutes,
+  getNearestStop,
 }
