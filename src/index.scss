@@ -1,4 +1,3 @@
-
 @charset "utf-8";
 
 // Import a Google Font
@@ -6,7 +5,7 @@
 
 // Set your brand colors
 $purple: #8a4d76;
-$red: #FE0813;
+$red: #fe0813;
 $brown: #757763;
 $white: whitesmoke;
 $beige-light: #d0d1cd;
@@ -22,11 +21,10 @@ $widescreen-enabled: false;
 $fullhd-enabled: false;
 
 // Update some of Bulma's component variables
-$body-background-color: #F4F6FA;
+$body-background-color: #f4f6fa;
 $control-border-width: 2px;
 $input-border-color: $grey-light;
 $input-shadow: none;
 
 // Import only what you need from Bulma
 @import '~bulma/bulma.sass';
-

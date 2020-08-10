@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 
 import Loader from './Loader'
+import DirectionChoice from './DirectionChoice'
+import Schedule from './Schedule'
+import SingleSchedule from './Schedule'
 
-const BusList = (props) => {
-  const { predictions } = props.times
-
+const BusList = ({ times: { predictions } }) => {
   const [timeout, updateTimeout] = useState(false)
   useEffect(() => {
     setTimeout(() => {
@@ -15,36 +16,25 @@ const BusList = (props) => {
   if (!predictions || !timeout) {
     return <Loader />
   }
-  const showNoBus = () => {
-    if (predictions.dirTitleBecauseNoPredictions) {
-      return (
-        <li>Sorry {predictions.dirTitleBecauseNoPredictions} is not running</li>
-      )
-    }
-  }
 
   const showBus = () => {
-    if (Array.isArray(predictions.direction.prediction)) {
-      const nextThree = predictions.direction.prediction.slice(0, 3)
-      return nextThree.map((bus) => (
-        <div className='card py-4 px-4' key={bus.tripTag}>
-          <li className='level'>
-            <div className='level-item'>Minutes {bus.minutes}</div>
-          </li>
-        </div>
-      ))
-    } else if (typeof predictions.direction.prediction === 'object') {
+    if (predictions.dirTitleBecauseNoPredictions) {
       return (
-        <li key={predictions.direction.prediction.tripTag}>
-          Minutes {predictions.direction.prediction.minutes}
+        <li>
+          Bus data not available for {predictions.dirTitleBecauseNoPredictions}
         </li>
       )
     }
+    if (Array.isArray(predictions.direction.prediction)) {
+      return <Schedule schedule={predictions.direction.prediction} />
+    }
+    if (typeof predictions.direction.prediction === 'object') {
+      return <SingleSchedule schedule={predictions.direction.prediction} />
+    }
+    if (Array.isArray(predictions.direction)) {
+      return <DirectionChoice directionData={predictions.direction} />
+    }
   }
-
-  const schedule = predictions.dirTitleBecauseNoPredictions
-    ? showNoBus()
-    : showBus()
 
   return (
     <div className='section'>
@@ -52,7 +42,7 @@ const BusList = (props) => {
         <h1 className='title is-3'>{predictions.routeTitle}</h1>
         <h2 className='title is-5'>{predictions.stopTitle}</h2>
       </div>
-      <ul>{schedule}</ul>
+      <ul>{showBus()}</ul>
     </div>
   )
 }

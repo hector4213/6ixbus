@@ -12,16 +12,16 @@ const RouteResults = ({ results, changeSearch, getBusSchedule }) => {
   const handleResult = async (routeTag, routeName) => {
     const response = await busService.getNearestStop(routeTag)
     setRouteData(response.data.route)
-    setShowDropDown(!showDropDown)
+    setShowDropDown(true)
     changeSearch(routeName)
   }
 
   return (
-    <div className='section'>
+    <div className='card'>
       {results.map((route) => (
         <div className='columns' key={route.tag}>
-          <div className='column'>{route.title}</div>
-          <div className='column'>
+          <div className='column has-text-centered'>{route.title}</div>
+          <div className='column has-text-centered'>
             <RouteButton handleResult={handleResult} route={route}>
               Show Direction
             </RouteButton>

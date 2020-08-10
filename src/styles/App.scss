@@ -8,3 +8,9 @@
 .ui {
   min-height: 100vh;
 }
+
+@media screen and (max-width: 480px) {
+  .main-container {
+    min-width: 100vw;
+  }
+}

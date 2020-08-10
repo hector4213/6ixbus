@@ -1,11 +1,11 @@
 import React from 'react'
 import RouteItem from './RouteItem'
 
-const RouteList = ({ routes, getBusSchedule }) => {
-  if (!routes) {
+const RouteList = ({ routes, getBusSchedule, routeSearch }) => {
+  if (!routes || routeSearch) {
     return null
   }
-  console.log('this is routes', routes)
+  console.log('these are the routes that serve that stop', routes) // set a loader here while fetching data
 
   const showRoutes = () => {
     if (routes.hasOwnProperty('dirTitleBecauseNoPredictions')) {

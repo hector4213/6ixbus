@@ -5,7 +5,7 @@ const RouteButton = ({ handleResult, children, route }) => {
     return (
       <button
         onClick={() => handleResult(route.tag, route.title)}
-        className='button'
+        className='button is-primary '
       >
         {children}
       </button>

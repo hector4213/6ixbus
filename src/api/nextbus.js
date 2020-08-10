@@ -2,14 +2,13 @@ import axios from 'axios'
 
 const baseURL = 'http://webservices.nextbus.com/service/publicJSONFeed'
 
-const getRoutes = (stop) => {
-  return axios.get(baseURL, {
+const getRoutes = (stop) =>
+  axios.get(baseURL, {
     params: { command: 'predictions', a: 'ttc', stopId: `${stop}` },
   })
-}
 
-const getSchedule = (routeTag, stopTag) => {
-  return axios.get(baseURL, {
+const getSchedule = (routeTag, stopTag) =>
+  axios.get(baseURL, {
     params: {
       command: 'predictions',
       a: 'ttc',
@@ -17,26 +16,23 @@ const getSchedule = (routeTag, stopTag) => {
       s: `${stopTag}`,
     },
   })
-}
 
-const getallServiceRoutes = () => {
-  return axios.get(baseURL, {
+const getallServiceRoutes = () =>
+  axios.get(baseURL, {
     params: {
       command: 'routeList',
       a: 'ttc',
     },
   })
-}
 
-const getNearestStop = (routeTag) => {
-  return axios.get(baseURL, {
+const getNearestStop = (routeTag) =>
+  axios.get(baseURL, {
     params: {
       command: 'routeConfig',
       a: 'ttc',
       r: `${routeTag}`,
     },
   })
-}
 export default {
   getSchedule,
   getRoutes,

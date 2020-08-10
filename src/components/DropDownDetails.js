@@ -8,7 +8,6 @@ const DropDownDetails = ({ details, getBusSchedule }) => {
     e.preventDefault()
     setDirectionIndex(Number(e.target.value))
   }
-
   useEffect(() => {
     const result = details.stop.filter((item) => {
       return details.direction[directionIndex].stop.find(
@@ -23,30 +22,37 @@ const DropDownDetails = ({ details, getBusSchedule }) => {
   }
 
   return (
-    <div className='columns'>
-      <div className='column'>
-        <div className='control'>
-          <div className='select'>
-            <select onChange={handleSelect} onSubmit={(e) => e.preventDefault}>
-              {details.direction.map((dir, i) => (
-                <option key={dir.tag} value={i}>
-                  {dir.title}
-                </option>
-              ))}
-            </select>
+    <div className='container'>
+      <div className='columns is-centered'>
+        <div className='column has-text-centered'>
+          <div className='control'>
+            <div className='select'>
+              <select
+                onChange={handleSelect}
+                onSubmit={(e) => e.preventDefault}
+              >
+                {details.direction.map((dir, i) => (
+                  <option key={dir.tag} value={i}>
+                    {dir.title}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
       </div>
-      <div className='column'>
-        <div className='control'>
-          <div className='select'>
-            <select onChange={onStopSelect}>
-              {stopList.map((stop) => (
-                <option key={stop.tag} value={stop.tag}>
-                  {stop.title}
-                </option>
-              ))}
-            </select>
+      <div className='columns'>
+        <div className='column has-text-centered'>
+          <div className='control'>
+            <div className='select'>
+              <select onChange={onStopSelect}>
+                {stopList.map((stop) => (
+                  <option key={stop.tag} value={stop.tag}>
+                    {stop.title}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
       </div>
