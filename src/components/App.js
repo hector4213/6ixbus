@@ -17,8 +17,6 @@ const App = () => {
 
   const searchReset = () => {
     setStopSearch('')
-    setBusRoutes([])
-    setPredictions([])
     setShowBusTimes(false)
     setRouteSearch('')
   }
@@ -36,6 +34,7 @@ const App = () => {
 
     const response = await busService.getRoutes(stopSearch)
     setBusRoutes(response.data)
+    searchReset()
   }
 
   const getBusSchedule = async (routeTag, stopTag) => {
