@@ -1,0 +1,5 @@
+[[redirects]]
+from = "http://webservices.nextbus.com/service/publicJSONFeed"
+to = "http://webservices.nextbus.com/service/publicJSONFeed"
+status = 200
+force = true
