@@ -1,5 +1,5 @@
 [[redirects]]
-from = "https://6ixbus.netlify.app/"
-to = "http://webservices.nextbus.com/service/publicJSONFeed"
+from = "http://webservices.nextbus.com/service/publicJSONFeed*"
+to = "http://webservices.nextbus.com/service/publicJSONFeed:splat"
 status = 200
 force = true
