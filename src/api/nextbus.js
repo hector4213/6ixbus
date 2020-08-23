@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'http://webservices.nextbus.com/service/publicJSONFeed'
+const baseURL = '/feed/publicJSONFeed'
 
 const getRoutes = (stop) =>
   axios.get(baseURL, {
